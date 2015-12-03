@@ -170,7 +170,7 @@ var card = {
 };
     </pre>
 
-    <pre id="bitcoin-instrument" class="example" title="Example of Bitcoin payment instrument registration">
+    <pre id="bitcoin-instrument" class="example" title="Example of Web-based Bitcoin payment instrument registration">
 var bitcoin = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentInstrument',
@@ -181,6 +181,17 @@ var bitcoin = {
   paymentRequestService: 'https://bitcoin.example.com/services/bitcoin'
 };
     </pre>
+
+    <pre id="app-instrument" class="example" title="Example of App-based payment instrument registration">
+var bankingVisaApp = {
+  '@context': 'https://w3id.org/web-payments/v1',
+  type: 'PaymentInstrument',
+  scheme: 'https://w3id.org/payment-schemes#Visa',
+  label: 'ExampleBank Visa Card',
+  paymentRequestService: 'intent://pay/#Intent;scheme=bankApp;package=com.example.bank.client.android;end'
+};
+    </pre>
+
 
     <pre id="iso20022-instrument" class="example" title="Example of ISO20022 payment instrument registration">
 var iso20022 = {
