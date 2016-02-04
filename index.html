@@ -81,7 +81,7 @@
 <section id="abstract">
   <p>
 This document details a set of messages that can be used to register
-payment instruments, request payments, and acknowledge payment requests. The
+payment apps, request payments, and acknowledge payment requests. The
 messages are communication channel agnostic and can be transferred via
 browser APIs, REST APIs, QRCode, NFC, or Bluetooth connections.
   </p>
@@ -115,7 +115,7 @@ browser APIs, REST APIs, QRCode, NFC, or Bluetooth connections.
 
   <p>
 This document details a set of messages that can be used to register
-payment instruments, request payments, and acknowledge payment requests. The
+payment apps, request payments, and acknowledge payment requests. The
 messages are communication channel agnostic and can be transferred via
 browser APIs, REST APIs, QRCode, NFC, or Bluetooth connections.
   </p>
@@ -124,7 +124,7 @@ browser APIs, REST APIs, QRCode, NFC, or Bluetooth connections.
 
     <p>
 This document is a detailed specification for a set of messages that
-can be used to register payment instruments, request payments, and
+can be used to register payment apps, request payments, and
 acknowledge payment requests. The messages are communication channel agnostic
 and can be transferred via browser APIs, REST APIs, QRCode, NFC, or Bluetooth
 connections. The document is primarily intended for the following
@@ -159,28 +159,28 @@ and the latest changes to the <a href="http://wicg.github.io/web-payments-browse
   <h2>Message Formats</h2>
 
   <section>
-    <h3>Payment Instrument Registration</h3>
+    <h3>Payment App Registration</h3>
 
     <p>
-A <a>payment instrument</a> registration message is used by a <a>payer</a> to
-add a payment instrument to the list of payment instruments that can be used
+A <a>payment app</a> registration message is used by a <a>payer</a> to
+add a payment app to the list of payment apps that can be used
 to complete a payment.
     </p>
 
-    <pre id="card-instrument" class="example" title="Example of a credit card payment instrument registration">
-var card = {
+    <pre id="card-instrument" class="example" title="Example of a credit card payment app registration">
+var visaApp = {
   '@context': 'https://w3id.org/web-payments/v1',
-  type: 'PaymentInstrument',
+  type: 'PaymentApp',
   scheme: 'https://w3id.org/payment-schemes#Visa',
   label: 'ExampleBank Visa Card',
   paymentRequestService: 'https://pay.example.com/services/cards'
 };
     </pre>
 
-    <pre id="bitcoin-instrument" class="example" title="Example of Web-based Bitcoin payment instrument registration">
-var bitcoin = {
+    <pre id="bitcoin-instrument" class="example" title="Example of Web-based Bitcoin payment app registration">
+var bitcoinApp = {
   '@context': 'https://w3id.org/web-payments/v1',
-  type: 'PaymentInstrument',
+  type: 'PaymentApp',
   scheme: 'https://w3id.org/payment-schemes#Bitcoin',
   id: 'bitcoin:19Cgacam5sVryog9QQKjFo1GApy34Qat83',
   label: 'BitExample Bitcoin Account',
@@ -189,10 +189,10 @@ var bitcoin = {
 };
     </pre>
 
-    <pre id="app-instrument" class="example" title="Example of App-based payment instrument registration">
+    <pre id="app-instrument" class="example" title="Example of App-based payment app registration">
 var bankingVisaApp = {
   '@context': 'https://w3id.org/web-payments/v1',
-  type: 'PaymentInstrument',
+  type: 'PaymentApp',
   scheme: 'https://w3id.org/payment-schemes#Visa',
   label: 'ExampleBank Visa Card',
   paymentRequestService: 'intent://pay/#Intent;scheme=bankApp;package=com.example.bank.client.android;end'
@@ -200,10 +200,10 @@ var bankingVisaApp = {
     </pre>
 
 
-    <pre id="iso20022-instrument" class="example" title="Example of ISO20022 payment instrument registration">
-var iso20022 = {
+    <pre id="iso20022-instrument" class="example" title="Example of ISO20022 payment app registration">
+var iso20022App = {
   '@context': 'https://w3id.org/web-payments/v1',
-  type: 'PaymentInstrument',
+  type: 'PaymentApp',
   scheme: 'https://w3id.org/payment-schemes#iso20022',
   label: 'Mega Widgets Corporate Account',
   paymentRequestService: 'https://bigbank.example.com/services/iso20022'
@@ -233,13 +233,6 @@ var req = {
       currency: 'USD'
     },
     paymentRequestService: 'https://merchant-psp.example.com/services/getPaymentInfo'
-  },
-  signature: {
-    type: 'LinkedDataSignature2015',
-    creator: 'https://merchant.example.com/keys/23',
-    created: '2015-09-23T20:21:34Z',
-    nonce: '239807882930744351',
-    signatureValue: 'NGVkMzVmOGQz4NTIyZTkZ...OWM32NjIgoYzI43Q3ODIy='
   }
 };
     </pre>
@@ -256,13 +249,6 @@ var req = {
       currency: 'USD'
     },
     destination: '20389472398',
-  },
-  signature: {
-    type: 'LinkedDataSignature2015',
-    creator: 'https://merchant.example.com/keys/23',
-    created: '2015-09-23T20:21:34Z',
-    nonce: '239807882930744352',
-    signatureValue: 'OGQzNGVkMzVm4NTIyZTkZ...goYzI43Q3ODIyOWM32NjI='
   }
 };
     </pre>
@@ -272,20 +258,13 @@ var req = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentRequest'
   description: 'Payment to ExampleMerch for Widget 1'
-  acceptedScheme: [{
+  acceptedScheme: {
     scheme: 'https://w3id.org/payment-schemes#Bitcoin',
     transfer: {
       amount: '0.0177',
       currency: 'BTC'
     },
     destination: '3QJmV3qfvL9SuYo34YihAf3sRCW3qSinyC'
-  },
-  signature: {
-    type: 'LinkedDataSignature2015',
-    creator: 'https://merchant.example.com/keys/23',
-    created: '2015-09-23T20:21:34Z',
-    nonce: '239847230947223423',
-    signatureValue: 'OGQzNGVkMzVm4NTIyZTkZ...goYzI43Q3ODIyOWM32NjI='
   }
 };
     </pre>
@@ -313,14 +292,7 @@ var req = {
       currency: 'BTC'
     },
     destination: '3QJmV3qfvL9SuYo34YihAf3sRCW3qSinyC'
-  },
-  signature: {
-    type: 'LinkedDataSignature2015',
-    creator: 'https://merchant.example.com/keys/23',
-    created: '2015-09-23T20:21:34Z',
-    nonce: '239847230947223423',
-    signatureValue: 'OGQzNGVkMzVm4NTIyZTkZ...goYzI43Q3ODIyOWM32NjI='
-  }
+  }]
 };
     </pre>
 
@@ -420,13 +392,6 @@ var req = {
         ]
       }
     }
-  },
-  signature: {
-    type: 'LinkedDataSignature2015',
-    creator: 'https://merchant.example.com/keys/23',
-    created: '2015-09-23T20:21:34Z',
-    nonce: '239807882930744352',
-    signatureValue: 'OGQzNGVkMzVm4NTIyZTkZ...goYzI43Q3ODIyOWM32NjI='
   }
 };
     </pre>
@@ -451,13 +416,6 @@ var acknowledgement = {
       currency: 'USD'
     },
     destination: '20389472398'
-  },
-  signature: {
-    type: 'LinkedDataSignature2015',
-    creator: 'https://payment-service-provider.example.com/keys/12',
-    created: '2015-09-23T20:23:15Z',
-    nonce: '239807882930744352',
-    signatureValue: 'm4NTIyZTOGQzNGVkMzVkZ...OWM32NjIgoYzI43Q3ODIy='
   }
 };
     </pre>
@@ -516,6 +474,41 @@ var acknowledgement = {
   }
 };
     </pre>
+  </section>
+
+  <section>
+    <h2>Security Considerations</h2>
+
+    <section>
+      <h3>Message Integrity</h3>
+      <p>
+It is possible to sign any JSON-LD based message by using
+Linked Data Signatures, like so:
+      </p>
+
+      <pre id="signed-card-request" class="example" title="Example of a signed card payment request">
+var req = {
+  '@context': 'https://w3id.org/web-payments/v1',
+  type: 'PaymentRequest',
+  description: 'Payment to ExampleMerch for widgets',
+  acceptedScheme: {
+    scheme: 'https://w3id.org/payment-schemes#Visa',
+    transfer: {
+      amount: '4.35',
+      currency: 'USD'
+    },
+    paymentRequestService: 'https://merchant-psp.example.com/services/getPaymentInfo'
+  },
+  signature: {
+    type: 'LinkedDataSignature2015',
+    creator: 'https://merchant.example.com/keys/23',
+    created: '2015-09-23T20:21:34Z',
+    nonce: '239807882930744351',
+    signatureValue: 'NGVkMzVmOGQz4NTIyZTkZ...OWM32NjIgoYzI43Q3ODIy='
+  }
+};
+      </pre>
+    </section>
   </section>
 
 </section>
