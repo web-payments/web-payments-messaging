@@ -171,7 +171,7 @@ to complete a payment.
 var visaApp = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentApp',
-  scheme: 'https://w3id.org/payment-schemes#Visa',
+  paymentMethod: 'https://w3id.org/payment-schemes#Visa',
   label: 'ExampleBank Visa Card',
   paymentRequestService: 'https://pay.example.com/services/cards'
 };
@@ -181,7 +181,7 @@ var visaApp = {
 var bitcoinApp = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentApp',
-  scheme: 'https://w3id.org/payment-schemes#Bitcoin',
+  paymentMethod: 'https://w3id.org/payment-schemes#Bitcoin',
   id: 'bitcoin:19Cgacam5sVryog9QQKjFo1GApy34Qat83',
   label: 'BitExample Bitcoin Account',
   privateKeyBitcoin: '5JSjcscTvQcCb2h7LxFGwEzVqHM6HqC6xanxwZtymRZg5Z1yWot',
@@ -193,7 +193,7 @@ var bitcoinApp = {
 var bankingVisaApp = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentApp',
-  scheme: 'https://w3id.org/payment-schemes#Visa',
+  paymentMethod: 'https://w3id.org/payment-schemes#Visa',
   label: 'ExampleBank Visa Card',
   paymentRequestService: 'intent://pay/#Intent;scheme=bankApp;package=com.example.bank.client.android;end'
 };
@@ -204,7 +204,7 @@ var bankingVisaApp = {
 var iso20022App = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentApp',
-  scheme: 'https://w3id.org/payment-schemes#iso20022',
+  paymentMethod: 'https://w3id.org/payment-schemes#iso20022',
   label: 'Mega Widgets Corporate Account',
   paymentRequestService: 'https://bigbank.example.com/services/iso20022'
 };
@@ -226,8 +226,8 @@ var req = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentRequest',
   description: 'Payment to ExampleMerch for widgets',
-  acceptedScheme: {
-    scheme: 'https://w3id.org/payment-schemes#Visa',
+  acceptedMethod: {
+    paymentMethod: 'https://w3id.org/payment-schemes#Visa',
     transfer: {
       amount: '4.35',
       currency: 'USD'
@@ -242,8 +242,8 @@ var req = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentRequest',
   description: 'Payment to ExampleMerch for widgets',
-  acceptedScheme: {
-    scheme: 'https://w3id.org/payment-schemes#Visa',
+  acceptedMethod: {
+    paymentMethod: 'https://w3id.org/payment-schemes#Visa',
     transfer: {
       amount: '4.35',
       currency: 'USD'
@@ -258,8 +258,8 @@ var req = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentRequest'
   description: 'Payment to ExampleMerch for Widget 1'
-  acceptedScheme: {
-    scheme: 'https://w3id.org/payment-schemes#Bitcoin',
+  acceptedMethod: {
+    paymentMethod: 'https://w3id.org/payment-schemes#Bitcoin',
     transfer: {
       amount: '0.0177',
       currency: 'BTC'
@@ -274,8 +274,8 @@ var req = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentRequest'
   description: 'Payment to ExampleMerch for Widget 1'
-  acceptedScheme: [{
-    scheme: [
+  acceptedMethod: [{
+    paymentMethod: [
       'https://w3id.org/payment-schemes#Visa',
       'https://w3id.org/payment-schemes#Mastercard',
       'https://w3id.org/payment-schemes#Discover'
@@ -286,7 +286,7 @@ var req = {
     },
     destination: '20389472398'
   }, {
-    scheme: 'https://w3id.org/payment-schemes#Bitcoin',
+    paymentMethod: 'https://w3id.org/payment-schemes#Bitcoin',
     transfer: {
       amount: '0.0177',
       currency: 'BTC'
@@ -301,9 +301,9 @@ var req = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentRequest',
   description: 'Payment to ExampleMerch for widgets',
-  acceptedScheme: {
+  acceptedMethod: {
     '@context': 'https://w3id.org/iso20022/v1',
-    scheme: 'https://w3id.org/payment-schemes#iso20022',
+    paymentMethod: 'https://w3id.org/payment-schemes#iso20022',
      CstmrCdtTrfInitn: {
        GrpHdr: {
          MsgId: 'ABC/120928/CCT001',
@@ -407,8 +407,8 @@ var acknowledgement = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentAcknowledgement',
   description: 'Payment to ExampleMerch for widgets',
-  selectedScheme: {
-    scheme: 'https://w3id.org/payment-schemes#Visa',
+  selectedpaymentMethod: {
+    paymentMethod: 'https://w3id.org/payment-schemes#Visa',
     status: 'authorized',
     token: '10025AB',
     transfer: {
@@ -424,9 +424,9 @@ var acknowledgement = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentAcknowledgement',
   description: 'Payment to ExampleMerch for widgets',
-  selectedScheme: {
+  selectedpaymentMethod: {
     id: 'bitcoin-transaction:78526206ef357c35398d3b020e6e09f38d77729cc4a70a6facd463bb146a4c90',
-    scheme: 'https://w3id.org/payment-schemes#Bitcoin',
+    paymentMethod: 'https://w3id.org/payment-schemes#Bitcoin',
     transfer: {
       amount: '0.035',
       currency: 'BTC'
@@ -441,9 +441,9 @@ var acknowledgement = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentAcknowledgement',
   description: 'Payment for shipment of widgets',
-  selectedScheme: {
+  selectedpaymentMethod: {
     '@context': 'https://w3id.org/iso20022/v1',
-    scheme: 'https://w3id.org/payment-schemes#iso20022',
+    paymentMethod: 'https://w3id.org/payment-schemes#iso20022',
     CstmrPmtStsRpt: {
       GrpHdr: {
         MsgId: 'XMPL/120928-PSR/001',
@@ -491,8 +491,8 @@ var req = {
   '@context': 'https://w3id.org/web-payments/v1',
   type: 'PaymentRequest',
   description: 'Payment to ExampleMerch for widgets',
-  acceptedScheme: {
-    scheme: 'https://w3id.org/payment-schemes#Visa',
+  acceptedMethod: {
+    paymentMethod: 'https://w3id.org/payment-schemes#Visa',
     transfer: {
       amount: '4.35',
       currency: 'USD'
